@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pixel Mail - Veronika</title>
+  <title>Love Letter for Veronika</title>
   <style>
     :root {
-      --bg-1: #0f1a2a;
-      --bg-2: #1c2f46;
-      --panel: #233a56;
-      --panel-edge: #3e6088;
-      --gold: #c9a15e;
-      --gold-dark: #8c6a32;
-      --paper: #f4e9c9;
-      --paper-edge: #b9a47a;
-      --ink: #2d1f1a;
-      --hp: #ef5a5a;
-      --mp: #5aa9ef;
-      --xp: #73d67a;
+      --night: #1b1730;
+      --night-2: #2b2250;
+      --gold: #d5a874;
+      --gold-deep: #ab7d4f;
+      --line: #5e4b83;
+      --paper: #fff6e8;
+      --paper-edge: #dbc7a6;
+      --ink: #4a3030;
     }
 
     * { box-sizing: border-box; }
@@ -27,172 +23,169 @@
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 14px;
-      color: #eaf5ff;
+      overflow: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
       background:
-        linear-gradient(180deg, var(--bg-2), var(--bg-1)),
-        repeating-linear-gradient(0deg, transparent 0 7px, rgba(255,255,255,.03) 7px 8px);
-      font-family: "Courier New", monospace;
-      image-rendering: pixelated;
+        radial-gradient(1200px 700px at 30% 15%, #3e2c6d 0%, transparent 65%),
+        radial-gradient(1000px 700px at 75% 85%, #3b2758 0%, transparent 70%),
+        linear-gradient(180deg, var(--night-2), var(--night));
+      color: #fff;
     }
 
-    .ui {
-      width: min(96vw, 560px);
-      border: 4px solid #0a111d;
-      background: var(--panel);
-      box-shadow:
-        inset 0 0 0 3px var(--panel-edge),
-        0 8px 0 #0a111d,
-        0 14px 26px rgba(0,0,0,.5);
-      padding: 10px;
+    .sparkles,
+    .sparkles::before,
+    .sparkles::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(#ffffff88 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: drift 22s linear infinite;
+      opacity: .3;
+    }
+    .sparkles::before { background-size: 60px 60px; animation-duration: 30s; opacity: .25; }
+    .sparkles::after  { background-size: 85px 85px; animation-duration: 38s; opacity: .2; }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(40px); }
     }
 
-    .hud {
-      display: grid;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 11px;
-      letter-spacing: .5px;
+    .scene { width: min(92vw, 460px); text-align: center; }
+    .title { font-size: clamp(1.1rem, 3.5vw, 1.6rem); margin-bottom: .35rem; }
+    .hint { opacity: .9; margin-bottom: 1rem; font-size: .95rem; }
+
+    .envelope-wrap {
+      display: inline-block;
+      animation: bob 2.6s ease-in-out infinite;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.35));
     }
 
-    .bar {
-      border: 2px solid #0a111d;
-      height: 14px;
-      background: #15263a;
-      position: relative;
-    }
-
-    .fill { height: 100%; }
-    .hp { width: 84%; background: var(--hp); }
-    .mp { width: 62%; background: var(--mp); }
-    .xp { width: 48%; background: var(--xp); }
-
-    .label { margin-bottom: 2px; }
-
-    .hint {
-      text-align: center;
-      font-size: 11px;
-      margin: 8px 0 10px;
-      color: #cde8ff;
+    @keyframes bob {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
     }
 
     .envelope {
-      width: min(92%, 380px);
-      aspect-ratio: 10/7;
-      margin: 0 auto;
+      width: min(84vw, 340px);
+      aspect-ratio: 10 / 7;
       position: relative;
-      border: 4px solid #1b1307;
-      background: linear-gradient(0deg, var(--gold-dark), var(--gold));
+      border: 4px solid var(--line);
+      background: linear-gradient(0deg, var(--gold-deep), var(--gold));
       cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      padding: 0;
       outline: none;
-      box-shadow: inset 0 0 0 3px #e9ca8e;
-      transition: transform 140ms steps(2, end);
+      transform: scale(1);
+      transition: transform 140ms ease;
     }
-    .envelope:hover { transform: translateY(-2px); }
-    .envelope:focus-visible { box-shadow: inset 0 0 0 3px #e9ca8e, 0 0 0 3px #fff; }
+    .envelope:active { transform: scale(.985); }
+    .envelope:focus-visible { box-shadow: 0 0 0 3px #f7e9cd; }
 
     .envelope::before,
     .envelope::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: #9e763d;
-      opacity: .9;
+      background: #9f7348;
+      opacity: .86;
     }
     .envelope::before { clip-path: polygon(0 0, 50% 56%, 0 100%); }
-    .envelope::after { clip-path: polygon(100% 0, 50% 56%, 100% 100%); }
+    .envelope::after  { clip-path: polygon(100% 0, 50% 56%, 100% 100%); }
+
+    .to {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      background: rgba(255, 247, 232, .9);
+      color: #684c37;
+      border: 2px solid #9c7652;
+      padding: 5px 11px;
+      font-size: clamp(.8rem, 2.1vw, .95rem);
+      transition: opacity .25s ease, transform .3s ease;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
 
     .flap {
       position: absolute;
       inset: 0;
-      clip-path: polygon(0 0,100% 0,50% 58%);
+      clip-path: polygon(0 0, 100% 0, 50% 58%);
       transform-origin: top;
-      border-bottom: 4px solid #1b1307;
-      background: linear-gradient(180deg, #d3ae6c, #9a733d);
-      transition: transform 650ms steps(7,end);
+      background: linear-gradient(180deg, #ddb684, #b48758);
+      border-bottom: 4px solid var(--line);
+      transition: transform .72s cubic-bezier(.2,.8,.2,1);
       z-index: 4;
     }
 
     .letter {
       position: absolute;
-      left: 8%; right: 8%; bottom: 8%;
-      height: 80%;
+      left: 10%; right: 10%; bottom: 9%;
+      height: 78%;
       border: 4px solid var(--paper-edge);
       background: var(--paper);
       color: var(--ink);
-      padding: 10px;
-      transform: translateY(58%);
-      transition: transform 650ms steps(7,end);
+      display: grid;
+      place-items: center;
+      font-size: clamp(1.1rem, 3vw, 1.45rem);
+      font-weight: 600;
+      transform: translateY(60%);
+      transition: transform .72s cubic-bezier(.2,.8,.2,1);
       z-index: 2;
       overflow: hidden;
-      font-size: clamp(11px, 1.7vw, 12px);
-      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .to {
-      border-bottom: 2px dashed #a78f63;
-      margin-bottom: 8px;
-      padding-bottom: 5px;
-      font-weight: bold;
+    .message {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .33s ease, transform .33s ease;
     }
-
-    .line { opacity: 0; transform: translateY(4px); transition: all 220ms steps(2,end); }
 
     .envelope.open .flap { transform: rotateX(180deg); }
-    .envelope.open .letter { transform: translateY(-9%); }
-    .envelope.open .line { opacity: 1; transform: translateY(0); }
-    .envelope.open .line:nth-of-type(2) { transition-delay: 260ms; }
-    .envelope.open .line:nth-of-type(3) { transition-delay: 420ms; }
-    .envelope.open .line:nth-of-type(4) { transition-delay: 560ms; }
-
-    .footer {
-      margin-top: 10px;
-      border: 2px solid #0a111d;
-      background: #16263b;
-      padding: 6px;
-      text-align: center;
-      font-size: 11px;
-      color: #cde8ff;
-    }
+    .envelope.open .letter { transform: translateY(-8%); }
+    .envelope.open .message { opacity: 1; transform: translateY(0); transition-delay: .38s; }
+    .envelope.open .to { opacity: 0; transform: translate(-50%, -66%); }
   </style>
 </head>
 <body>
-  <main class="ui">
-    <section class="hud" aria-hidden="true">
-      <div>
-        <div class="label">HP</div><div class="bar"><div class="fill hp"></div></div>
-      </div>
-      <div>
-        <div class="label">MP</div><div class="bar"><div class="fill mp"></div></div>
-      </div>
-      <div>
-        <div class="label">COZY XP</div><div class="bar"><div class="fill xp"></div></div>
-      </div>
-    </section>
+  <div class="sparkles" aria-hidden="true"></div>
 
-    <div class="hint">[CLICK ENVELOPE TO OPEN MESSAGE]</div>
+  <main class="scene">
+    <div class="title">A little note for Veronika</div>
+    <div class="hint">Tap / click envelope to open ✨</div>
 
-    <div id="envelope" class="envelope" role="button" tabindex="0" aria-label="Open letter for Veronika">
-      <article class="letter" aria-live="polite">
-        <div class="to">TO: VERONIKA</div>
-        <div class="line">quest reward unlocked: warm smile</div>
-        <div class="line">you make the world feel safer, softer,</div>
-        <div class="line">and full of tiny glowing pixels ✨</div>
-      </article>
-      <div class="flap"></div>
+    <div class="envelope-wrap">
+      <button id="envelope" class="envelope" type="button" aria-label="Open letter for Veronika">
+        <div class="to">To Veronika</div>
+        <div class="letter"><div class="message">I love you ♥</div></div>
+        <div class="flap"></div>
+      </button>
     </div>
-
-    <div class="footer">Controls: Mouse Click / Enter / Space</div>
   </main>
 
   <script>
     const envelope = document.getElementById('envelope');
-    const toggleEnvelope = () => envelope.classList.toggle('open');
-    envelope.addEventListener('click', toggleEnvelope);
-    envelope.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleEnvelope();
+    const toggleOpen = () => envelope.classList.toggle('open');
+
+    envelope.addEventListener('click', toggleOpen);
+    envelope.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') {
+        event.preventDefault();
+        toggleOpen();
+      }
+    });
+
+    envelope.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleOpen();
       }
     });
   </script>
